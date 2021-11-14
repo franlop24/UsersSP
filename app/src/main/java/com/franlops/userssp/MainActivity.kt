@@ -1,7 +1,9 @@
 package com.franlops.userssp
 
+import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -18,6 +20,11 @@ class MainActivity : AppCompatActivity(), OnClickListener {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        val preferences = getPreferences(Context.MODE_PRIVATE)
+
+        val isFirstTime = preferences.getBoolean(getString(R.string.sp_fisrt_time), true)
+        Log.i("SP", "${getString(R.string.sp_fisrt_time)} = $isFirstTime")
 
         userAdapter = UserAdapter(getUsers(), this)
         linearLayoutManager = LinearLayoutManager(this)
