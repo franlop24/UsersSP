@@ -5,6 +5,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.franlops.userssp.databinding.ItemUserBinding
 
 class UserAdapter(private val users:List<User>) : RecyclerView.Adapter<UserAdapter.ViewHolder>(){
@@ -23,8 +25,14 @@ class UserAdapter(private val users:List<User>) : RecyclerView.Adapter<UserAdapt
         val user = users.get(position)
 
         with(holder){
-            binding.tvOrder.text = user.id.toString()
+            binding.tvOrder.text = (position + 1).toString()
             binding.tvName.text = user.name
+            Glide.with(context)
+                .load(user.url)
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .centerCrop()
+                .circleCrop()
+                .into(binding.imgPhoto)
         }
     }
 
